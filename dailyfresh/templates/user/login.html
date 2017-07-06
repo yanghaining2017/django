@@ -2,6 +2,37 @@
 
 {%block head%}
 <script>
+	$(function () {
+		$('form').submit(function () {
+
+		    name_result=$('#uname').blur();
+		    pwd_result=$('#upwd').blur();
+		    return name_result && pwd_result;
+
+        });
+		$('#uname').blur(function () {
+		    name_len=$(this).val().length;
+		    if(name_len<5 || name_len>20){
+		        $('.user_error').html('请输入5-20个字符的用户名').show();
+		        return false;
+			}else{
+		        $('.user_error').html('').hide();
+		        return true;
+			}
+
+        });
+		$('#user_pwd').blur(function () {
+			pwd_len=$(this).val().length;
+		    if(pwd_len<8 || pwd_len>20){
+		        $('.pwd_error').html('密码最少8位，最长20位').show();
+		        return false;
+			}else{
+		        $('.pwd_error').html('').hide();
+		        return true;
+			}
+
+        });
+    });
 
 </script>
 
@@ -11,7 +42,7 @@
 
 
 	<div class="login_top clearfix">
-		<a href="/" class="login_logo"><img src="/static/images/logo02.png"></a>
+		<a href="../index.html" class="login_logo"><img src="/static/images/logo02.png"></a>
 	</div>
 
 	<div class="login_form_bg">
@@ -21,20 +52,21 @@
 			<div class="login_form fr">
 				<div class="login_title clearfix">
 					<h1>用户登录</h1>
-					<a href="#">立即注册</a>
+					<a href="/user/register/">立即注册</a>
 				</div>
 				<div class="form_input">
-					<form>
-						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
-						<div class="user_error">输入错误</div>
-						<input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
-						<div class="pwd_error">输入错误</div>
+					<form action="/user/login_handle/" method="post">
+						{%csrf_token%}
+						<input type="text" name="uname" id="uname"	 class="name_input" placeholder="请输入用户名">
+						<div class="user_error">{{error_name}}</div>
+						<input type="password" name="upwd" id="upwd" class="pass_input" placeholder="请输入密码">
+						<div class="pwd_error">{{error_pwd}}</div>
 						<div class="more_input clearfix">
 							<input type="checkbox" name="">
 							<label>记住用户名</label>
 							<a href="#">忘记密码</a>
 						</div>
-						<input type="submit" name="" value="登录" class="input_submit">
+						<input type="submit"  value="登录" class="input_submit">
 					</form>
 				</div>
 			</div>
