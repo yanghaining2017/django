@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'ttsx_user',
     'ttsx_goods',
+    'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -109,4 +110,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+#上传路径
 MEDIA_ROOT=os.path.join(BASE_DIR,'static')
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}
