@@ -7,9 +7,9 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="user_center_info.html" class="active">· 个人信息</a></li>
-				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a href="user_center_site.html">· 收货地址</a></li>
+				<li><a href="/user/user_center_info/" class="active">· 个人信息</a></li>
+				<li><a href="/user/user_center_order/">· 全部订单</a></li>
+				<li><a href="/user/user_center_site/">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -17,7 +17,7 @@
 				<h3 class="common_title2">基本信息</h3>
 						<ul class="user_info_list">
 							<li><span>用户名：</span>{{ user.uname }}</li>
-							<li><span>联系方式：</span>{{ user.uphone }}</li>
+							<li><span>联系方式：</span>{{ user.uphone|default:'&nbsp;&nbsp;&nbsp;'}}</li>
 							<li><span>联系地址：</span>{{ user.uaddress }}</li>
 						</ul>
 				</div>

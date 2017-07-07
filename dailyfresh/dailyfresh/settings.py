@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ttsx_user'
+    'ttsx_user',
+    'ttsx_goods',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,6 +51,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'ttsx_user.middleware.UrlPathMiddleware',
 )
 
 ROOT_URLCONF = 'dailyfresh.urls'
@@ -107,3 +109,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+MEDIA_ROOT=os.path.join(BASE_DIR,'static')
