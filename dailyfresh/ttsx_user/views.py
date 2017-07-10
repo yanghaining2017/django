@@ -99,7 +99,9 @@ def login_handle(request):
             return render(request,'user/login.html',context)
 
 def logout(request):
+    url=request.session.get('url_path')
     request.session.flush()
+    request.session['url_path']=url
     return redirect('/user/login/')
 
 @user_decorators.user_islogin
