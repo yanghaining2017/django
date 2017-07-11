@@ -12,9 +12,10 @@
 {%block right%}
 <div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="#" class="active">默认</a>
-				<a href="#">价格</a>
-				<a href="#">人气</a>
+                {% load filters %}
+				<a href="/goods/list{{t1.id}}?desc=0" class="{{cla.default}}">默认</a>
+				<a href="/goods/list{{t1.id}}?desc={{num|num1}}" class="{{cla.gprice}}">价格</a>
+				<a href="/goods/list{{t1.id}}?desc=2" class="{{cla.gclick}}">人气</a>
 			</div>
 
 			<ul class="goods_type_list clearfix">
@@ -34,20 +35,20 @@
 
 			<div class="pagenation">
 				{%if page.has_previous%}
-				<a href="/list{{t1.id}}_{{page.number|add:-1}}/"><上一页</a>
+				<a href="/goods/list{{t1.id}}{{page.number|add:-1}}/"><上一页</a>
 				{%endif%}
 				{%for pindex in alist%}
 				{%if page.number == pindex%}
 				<a href="#" class="active">{{pindex}}</a>
 				{%else%}
-				<a href="/list{{t1.id}}_{{pindex}}/" class="">{{pindex}}</a>
+				<a href="/goods/list{{t1.id}}{{pindex}}/" class="">{{pindex}}</a>
 				{%endif%}
 				{%endfor%}
 
 
 				{%if page.has_next%}
-				<a href="/list{{t1.id}}_{{page.number|add:1}}/">下一页></a>
-				<a href="/list{{t1.id}}_{{page.paginator.num_pages}}/">末页</a>
+				<a href="/goods/list{{t1.id}}{{page.number|add:1}}/">下一页></a>
+				<a href="/goods/list{{t1.id}}{{page.paginator.num_pages}}/">末页</a>
 
 				{%endif%}
 			</div>

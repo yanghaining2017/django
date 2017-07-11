@@ -5,6 +5,7 @@ from hashlib import sha1
 from models import UserInfo
 import user_decorators
 import datetime
+from ttsx_goods.models import GoodsInfo
 # Create your views here.
 def register(request):
     #继承
@@ -107,8 +108,17 @@ def logout(request):
 @user_decorators.user_islogin
 def user_center_info(request):
     user=UserInfo.objects.get(pk=request.session['uid'])
-    context={'user':user}
+    gstr=request.COOKIES.get('glance')
+    glist=gstr.split(',')[1:]
+    goods_list=[]
+    for i in glist:
+        goods_list.append(GoodsInfo.objects.get(pk=int(i)))
+    context={'user':user,'goods':goods_list}
     return render(request,'user/user_center_info.html',context)
+
+
+
+
 @user_decorators.user_islogin
 def user_center_site(request):
     user = UserInfo.objects.get(pk=request.session['uid'])
