@@ -109,15 +109,19 @@ def logout(request):
 def user_center_info(request):
     user=UserInfo.objects.get(pk=request.session['uid'])
     gstr=request.COOKIES.get('glance')
-    glist=gstr.split(',')[1:]
+
+
+    if not gstr:
+        glist = []
+
+    else:
+        glist = gstr.split(',')[1:][::-1]
+
     goods_list=[]
     for i in glist:
         goods_list.append(GoodsInfo.objects.get(pk=int(i)))
     context={'user':user,'goods':goods_list}
     return render(request,'user/user_center_info.html',context)
-
-
-
 
 @user_decorators.user_islogin
 def user_center_site(request):
@@ -137,10 +141,16 @@ def user_center_site(request):
 
     context={'user':user}
     return  render(request,'user/user_center_site.html',context)
+
 @user_decorators.user_islogin
 def user_center_order(request):
     context={}
     return render(request,'user/user_center_order.html',context)
 
+def islogin(request):
+    if request.session.has_key('uid'):
+        return JsonResponse({'result':1})
+    else:
+        return JsonResponse({'result':0})
 
 

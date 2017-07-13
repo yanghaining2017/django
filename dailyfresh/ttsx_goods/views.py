@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import GoodsInfo,TypeInfo
+
 # Create your views here.
 
 def index(request):
@@ -77,6 +78,13 @@ def detail(request,id):
     new_list=goods.gtype.goodsinfo_set.order_by('-id')[0:2]
     context={'cart_show':'1','title':'商品详细信息','new_list':new_list,'goods':goods}
     gstr = request.COOKIES.get('glance','')
+    glist=gstr.split(',')
+
+    if str(goods.id) in glist:
+
+        glist.remove(str(goods.id))
+
+    gstr=','.join(glist)
     gstr+= ",%s"%goods.id
 
 
@@ -87,6 +95,7 @@ def detail(request,id):
     return response
     # except:
     #     return render(request,'404.html')
+
 
 
 

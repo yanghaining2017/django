@@ -1,5 +1,32 @@
 {%extends 'ttsx_goods/base.html'%}
 
+{%block head%}
+    <script>
+    //登录判断
+    function add_cart(gid){
+        $.get('/user/islogin/',function (data) {
+           if (data.result){
+               $.get('/cart/add/',{'gid':gid},function (data) {
+                   if (data.result){
+                       alert("购买成功")
+                   }
+                   else{
+                       alert("购买失败")
+                   }
+
+               })
+           }
+           else{
+               location.href='/user/login/'
+           }
+        })
+
+    }
+    //如果登录,则加入购物车
+    //如果未登录,提示登陆信息
+    </script>
+{%endblock head%}
+
 {%block detail%}
 
 	<div class="breadcrumb">
@@ -26,7 +53,7 @@
 					<div class="operate">
 						<span class="prize">￥{{goods.gprice}}</span>
 						<span class="unit">{{goods.gprice}}/{{goods.gunit}}</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
+						<a href="javascript:add_cart({{goods.id}});" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
 				{%endfor%}
